@@ -10,4 +10,6 @@
 - git push -u origin main
 
 ## staging and updating views.py 
-- git add views.py
+- git add views.py README.md db.sqlite3
+- git commit -m "updating views, readme and sqlite files"
+- git push -u origin main
