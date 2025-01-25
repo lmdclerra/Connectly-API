@@ -19,8 +19,7 @@ def get_users(request):
 def get_user(request, user_id):
     if request.method == 'GET':
         try:            
-            # user = User.objects.filter(id=user_id).first()
-            user = get_object_or_404(User, id=user_id) # filter one record if found
+            user = User.objects.filter(id=user_id).first()            
             return JsonResponse({'id': user.id, 'username': user.username, 'email': user.email}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -43,11 +42,10 @@ def update_user(request, user_id):
     if request.method == 'PUT':
         try:
             data = json.loads(request.body)           
-            # user = User.objects.filter(id=user_id).first()
-            user = get_object_or_404(User, id=user_id)            
+            user = User.objects.filter(id=user_id).first()            
             user.username = data.get('username', user.username)
             user.email = data.get('email', user.email)
-            user.save()
+            user.save() # save user back to database
             return JsonResponse({'id': user.id, 'message': 'User updated successfully'}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
@@ -57,9 +55,8 @@ def update_user(request, user_id):
 def delete_user(request, user_id):
     if request.method == 'DELETE':
         try:
-            # user = User.objects.filter(id=user_id).first()
-            user = get_object_or_404(User, id=user_id)
-            user.delete()
+            user = User.objects.filter(id=user_id).first()            
+            user.delete() # delete user from the database
             return JsonResponse({'message': 'User deleted successfully'}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
