@@ -17,10 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+# from ..posts.views import LoginView  # .. means back or up one level from current folder
+
 urlpatterns = [
     path('admin/', admin.site.urls),    
     path('api-auth/', include('rest_framework.urls')), # DRF login/logout
     # -------^----- Navigate to http://127.0.0.1:8000/api-auth/login/ 
     # to see the DRF login interface. This confirms that DRF is installed and configured.
     path('posts/', include('posts.urls')),
+
+    # workaround to test the requirement payload in page 3 of 5 of "Enabling HTTPS in Development"
+    # see solution provided by AI from the following document: (argon2.md) argon2 challenges in installing:
+    # path('login/', LoginView.as_view(), name='login-view'),  
 ]

@@ -1,6 +1,6 @@
 from django.urls import path, include 
 from . import views 
-from .views import UserListCreate, PostListCreate, CommentListCreate
+from .views import UserListCreate, PostListCreate, CommentListCreate, AdminOnlyView, LoginView
 from django.contrib import admin
 
 
@@ -15,5 +15,11 @@ urlpatterns = [
   
     path('users/', UserListCreate.as_view(), name='user-list-create'),
     path('posts/', PostListCreate.as_view(), name='post-list-create'),
-    path('comments/', CommentListCreate.as_view(), name='comment-list-create'), 
+    path('comments/', CommentListCreate.as_view(), name='comment-list-create'),     
+
+    # path('admin/', AdminOnlyView.as_view(), name='admin-view-only'),  # http://127.0.0.1:8000/posts/posts/admin/
+
+    # workaround to test the requirement payload in page 3 of 5 of "Enabling HTTPS in Development"
+    # see solution provided by AI from the following document: (argon2.md) argon2 challenges in installing:
+    path('login/', LoginView.as_view(), name='login'),  
 ]   

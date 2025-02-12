@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_extensions', # introducing django-ext to recognize the runserver_plus
     'rest_framework',  # Add Django REST Framework
     'posts',
 ]
@@ -123,3 +124,19 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+SECURE_SSL_REDIRECT = True              # Redirect all HTTP traffic to HTTPS
+SESSION_COOKIE_SECURE = True            # Protect session cookies
+CSRF_COOKIE_SECURE = True               # Protect CSRF tokens
+SECURE_HSTS_SECONDS = 31536000          # Enforce HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True   # Apply HSTS to subdomains
+SECURE_HSTS_PRELOAD = True              # Allow HSTS preloading in browsers
+
+
+PASSWORD_HASHERS = [
+    'django.contrib.auth.hashers.Argon2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+]
+
+AUTH_USER_MODEL = 'posts.User' # this will look for User model defined in models.py
